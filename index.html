@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chillox Banani — Chill. Eat. Repeat.</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red: #E8151B;
+  --dark-red: #B01015;
+  --deep-red: #7a0a0e;
+  --black: #0a0a0a;
+  --card-bg: #141414;
+  --card-border: #222;
+  --white: #ffffff;
+  --muted: #888;
+  --gold: #FFD700;
+  --green: #4ade80;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth;}
+
+body{
+  font-family:'Nunito',sans-serif;
+  background:var(--black);
+  color:var(--white);
+  overflow-x:hidden;
+}
+
+/* ── NAVBAR ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 48px;
+  background:rgba(10,10,10,0.95);
+  backdrop-filter:blur(16px);
+  border-bottom:1.5px solid rgba(232,21,27,0.35);
+  transition:padding .3s;
+}
+.nav-brand{display:flex;align-items:center;gap:12px;}
+.nav-logo{
+  width:46px;height:46px;border-radius:50%;
+  object-fit:cover;border:2px solid var(--red);
+  box-shadow:0 0 16px rgba(232,21,27,0.4);
+}
+.nav-name{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;letter-spacing:3px;}
+.nav-name span{color:var(--red);}
+.nav-links{display:flex;gap:28px;list-style:none;align-items:center;}
+.nav-links a{
+  color:#aaa;text-decoration:none;font-size:.8rem;font-weight:700;
+  letter-spacing:1.8px;text-transform:uppercase;transition:color .2s;
+}
+.nav-links a:hover{color:var(--red);}
+.nav-order{
+  background:var(--red);color:#fff !important;
+  padding:9px 22px;border-radius:30px;
+  box-shadow:0 4px 18px rgba(232,21,27,.45);
+  transition:background .2s,transform .2s !important;
+}
+.nav-order:hover{background:var(--dark-red) !important;transform:scale(1.04);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
+.hamburger span{display:block;width:24px;height:2px;background:#fff;transition:.3s;}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+  background:radial-gradient(ellipse 80% 60% at 60% 40%,rgba(232,21,27,.15) 0%,transparent 70%),var(--black);
+}
+.hero-particles{position:absolute;inset:0;pointer-events:none;}
+.spark{
+  position:absolute;border-radius:50%;
+  background:var(--red);opacity:0;
+  animation:sparkRise var(--d) ease-in infinite var(--dl);
+  width:var(--s);height:var(--s);left:var(--l);bottom:-10px;
+}
+@keyframes sparkRise{
+  0%{opacity:0;transform:translateY(0) scale(1);}
+  15%{opacity:.7;}
+  85%{opacity:.15;}
+  100%{opacity:0;transform:translateY(-70vh) scale(.2);}
+}
+.hero-inner{position:relative;z-index:2;text-align:center;padding:0 24px;max-width:900px;}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(232,21,27,.12);border:1px solid rgba(232,21,27,.35);
+  padding:6px 20px;border-radius:40px;
+  font-size:.72rem;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;
+  color:#ff8585;margin-bottom:22px;
+  animation:fadeDown .8s both;
+}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-16px);}to{opacity:1;transform:none;}}
+.hero-logo-big{
+  width:140px;height:140px;border-radius:50%;
+  object-fit:cover;margin:0 auto 28px;display:block;
+  border:4px solid var(--red);
+  box-shadow:0 0 60px rgba(232,21,27,.5),0 0 120px rgba(232,21,27,.15);
+  animation:popIn .9s cubic-bezier(.34,1.56,.64,1) both .2s;
+}
+@keyframes popIn{from{opacity:0;transform:scale(.6);}to{opacity:1;transform:scale(1);}}
+.hero-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(5rem,15vw,10rem);
+  line-height:.9;letter-spacing:6px;
+  color:#fff;
+  text-shadow:0 0 100px rgba(232,21,27,.5);
+  animation:fadeUp .9s both .3s;
+}
+.hero-title .fire{color:var(--red);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:none;}}
+.hero-tagline{
+  font-size:clamp(.9rem,2.2vw,1.2rem);color:#999;
+  letter-spacing:5px;text-transform:uppercase;font-weight:600;
+  margin:14px 0 36px;animation:fadeUp .9s both .45s;
+}
+.hero-tagline em{color:var(--gold);font-style:normal;font-weight:900;}
+.hero-meta{
+  display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+  padding:12px 28px;border-radius:50px;margin-bottom:40px;
+  animation:fadeUp .9s both .5s;
+}
+.stars{color:var(--gold);letter-spacing:2px;}
+.rating-val{font-weight:900;font-size:1.1rem;}
+.sep{color:#444;}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;animation:fadeUp .9s both .6s;}
+.btn-fire{
+  background:var(--red);color:#fff;
+  padding:16px 44px;border-radius:50px;text-decoration:none;
+  font-weight:900;font-size:.88rem;letter-spacing:2px;text-transform:uppercase;
+  box-shadow:0 8px 32px rgba(232,21,27,.45);
+  transition:all .3s;display:inline-flex;align-items:center;gap:8px;
+}
+.btn-fire:hover{background:var(--dark-red);transform:translateY(-4px);box-shadow:0 14px 40px rgba(232,21,27,.65);}
+.btn-ghost{
+  border:2px solid rgba(255,255,255,.2);color:#ddd;
+  padding:14px 42px;border-radius:50px;text-decoration:none;
+  font-weight:700;font-size:.88rem;letter-spacing:2px;text-transform:uppercase;
+  transition:all .3s;
+}
+.btn-ghost:hover{border-color:var(--red);color:var(--red);transform:translateY(-4px);}
+.scroll-hint{
+  position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  color:#444;font-size:.65rem;letter-spacing:2px;text-transform:uppercase;
+}
+.scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,var(--red),transparent);animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:.3;}50%{opacity:1;}}
+
+/* ── SECTION BASE ── */
+section{padding:100px 48px;}
+.container{max-width:1200px;margin:0 auto;}
+.sec-label{font-size:.65rem;font-weight:800;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-bottom:8px;}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,6vw,4.4rem);letter-spacing:2px;line-height:1;}
+.sec-sub{color:var(--muted);font-size:.88rem;margin-top:12px;line-height:1.7;}
+
+/* ── ABOUT ── */
+#about{background:#0e0e0e;}
+.about-wrap{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:60px;}
+.about-desc{color:#aaa;font-size:.95rem;line-height:1.85;margin-top:20px;}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:36px;}
+.stat{
+  background:var(--card-bg);border:1px solid var(--card-border);
+  border-radius:16px;padding:22px 16px;text-align:center;
+  transition:border-color .3s;
+}
+.stat:hover{border-color:rgba(232,21,27,.5);}
+.stat-n{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;color:var(--red);}
+.stat-l{font-size:.7rem;color:#666;letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
+.about-visual{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:200px 200px;gap:14px;}
+.av-box{
+  border:1px solid #1e1e1e;border-radius:18px;
+  overflow:hidden;
+  transition:transform .3s,border-color .3s;cursor:default;
+  position:relative;
+}
+.av-box img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .4s ease;
+  display:block;
+}
+.av-box:hover{transform:scale(1.03);border-color:rgba(232,21,27,.5);}
+.av-box:hover img{transform:scale(1.08);}
+.av-span{grid-column:span 2;}
+.av-label{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(to top,rgba(0,0,0,.85),transparent);
+  padding:18px 16px 12px;
+  font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:1.5px;
+  color:#fff;
+}
+
+/* ── FEATURES ── */
+#features{background:var(--black);}
+.feat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:56px;}
+.feat-card{
+  background:var(--card-bg);border:1px solid var(--card-border);
+  border-radius:20px;padding:36px 24px;text-align:center;
+  transition:all .3s;position:relative;overflow:hidden;
+}
+.feat-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:var(--red);transform:scaleX(0);transform-origin:left;transition:.3s;
+}
+.feat-card:hover::after{transform:scaleX(1);}
+.feat-card:hover{border-color:rgba(232,21,27,.3);transform:translateY(-6px);}
+.feat-ico{font-size:2.6rem;margin-bottom:18px;}
+.feat-name{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:1px;margin-bottom:8px;}
+.feat-text{color:#777;font-size:.82rem;line-height:1.65;}
+
+/* ── MENU ── */
+#menu{background:#0e0e0e;}
+.menu-tabs{
+  display:flex;gap:10px;flex-wrap:wrap;margin-top:44px;margin-bottom:44px;
+}
+.tab{
+  padding:9px 24px;border-radius:30px;border:1.5px solid #2a2a2a;
+  background:transparent;color:#888;font-family:'Nunito',sans-serif;
+  font-size:.78rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
+  cursor:pointer;transition:all .25s;
+}
+.tab:hover{border-color:var(--red);color:var(--red);}
+.tab.active{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 4px 18px rgba(232,21,27,.4);}
+.menu-panel{display:none;}
+.menu-panel.active{display:grid;}
+.menu-grid-2{grid-template-columns:repeat(2,1fr);gap:18px;}
+.menu-grid-3{grid-template-columns:repeat(3,1fr);gap:20px;}
+.menu-grid-4{grid-template-columns:repeat(4,1fr);gap:18px;}
+
+.menu-item{
+  background:var(--card-bg);border:1px solid var(--card-border);
+  border-radius:18px;padding:22px;display:flex;
+  justify-content:space-between;align-items:flex-start;
+  gap:12px;transition:all .28s;cursor:default;
+}
+.menu-item:hover{border-color:rgba(232,21,27,.4);transform:translateY(-3px);box-shadow:0 10px 36px rgba(0,0,0,.5);}
+.menu-item-left{flex:1;}
+.menu-item-emoji{font-size:1.5rem;margin-bottom:8px;display:block;}
+.menu-item-name{font-weight:800;font-size:.95rem;margin-bottom:4px;}
+.menu-item-desc{color:#666;font-size:.75rem;line-height:1.5;}
+.menu-badge{
+  font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
+  padding:3px 10px;border-radius:20px;margin-bottom:6px;display:inline-block;
+}
+.badge-hot{background:rgba(232,21,27,.15);color:#ff6b6b;}
+.badge-new{background:rgba(74,222,128,.12);color:var(--green);}
+.badge-best{background:rgba(255,215,0,.12);color:var(--gold);}
+.menu-price{
+  font-family:'Bebas Neue',sans-serif;font-size:1.6rem;
+  color:var(--red);white-space:nowrap;flex-shrink:0;
+}
+.menu-price .tk{font-size:.85rem;font-family:'Nunito',sans-serif;font-weight:700;color:#a03;vertical-align:top;margin-top:4px;display:inline-block;}
+
+/* chicken fry special layout */
+.chickenfry-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.cf-card{
+  background:var(--card-bg);border:1px solid var(--card-border);
+  border-radius:18px;padding:24px;transition:all .28s;
+}
+.cf-card:hover{border-color:rgba(232,21,27,.4);transform:translateY(-3px);}
+.cf-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:1px;color:var(--red);margin-bottom:4px;}
+.cf-sub{color:#666;font-size:.75rem;margin-bottom:16px;}
+.cf-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:7px 0;border-bottom:1px solid #1e1e1e;font-size:.83rem;
+}
+.cf-row:last-child{border-bottom:none;}
+.cf-pcs{color:#aaa;}
+.cf-price{font-weight:800;color:var(--red);}
+
+/* wings flavor pills */
+.flavor-pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+.pill{
+  background:rgba(255,255,255,.05);border:1px solid #2a2a2a;
+  padding:4px 14px;border-radius:20px;font-size:.72rem;font-weight:700;
+  letter-spacing:1px;color:#aaa;text-transform:uppercase;
+}
+
+/* ── REVIEWS ── */
+#reviews{background:var(--black);}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px;}
+.rev-card{
+  background:var(--card-bg);border:1px solid var(--card-border);
+  border-radius:20px;padding:32px 26px;transition:all .3s;position:relative;overflow:hidden;
+}
+.rev-card::before{
+  content:'"';position:absolute;top:14px;left:22px;
+  font-size:5rem;font-family:Georgia,serif;color:var(--red);opacity:.15;line-height:1;
+}
+.rev-card:hover{border-color:rgba(232,21,27,.35);transform:translateY(-4px);}
+.rev-stars{color:var(--gold);font-size:.95rem;margin-bottom:14px;}
+.rev-text{color:#bbb;font-size:.87rem;line-height:1.75;margin-bottom:22px;}
+.reviewer{display:flex;align-items:center;gap:13px;}
+.rev-av{
+  width:42px;height:42px;border-radius:50%;background:var(--red);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:.95rem;flex-shrink:0;
+}
+.rev-name{font-weight:800;font-size:.88rem;}
+.rev-date{font-size:.72rem;color:#555;margin-top:2px;}
+
+/* ── LOCATION ── */
+#location{background:#0e0e0e;}
+.loc-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:60px;margin-top:56px;align-items:start;}
+.loc-info{display:flex;flex-direction:column;gap:26px;}
+.loc-block{display:flex;gap:16px;align-items:flex-start;}
+.loc-icon{
+  width:48px;height:48px;background:rgba(232,21,27,.1);border:1px solid rgba(232,21,27,.2);
+  border-radius:14px;display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;flex-shrink:0;
+}
+.loc-label{font-size:.65rem;color:#666;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;}
+.loc-val{font-size:.92rem;font-weight:600;line-height:1.55;}
+.hours-tbl{width:100%;margin-top:6px;}
+.hours-tbl tr{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #1c1c1c;}
+.hours-tbl .d{color:#888;font-size:.82rem;}
+.hours-tbl .t{font-size:.82rem;font-weight:800;color:var(--green);}
+.services-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;}
+.srv{
+  background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.2);
+  color:var(--green);font-size:.72rem;font-weight:800;
+  letter-spacing:1px;text-transform:uppercase;padding:5px 14px;border-radius:20px;
+}
+.map-wrap{border-radius:20px;overflow:hidden;border:1px solid #1e1e1e;height:430px;box-shadow:0 20px 60px rgba(0,0,0,.5);}
+.map-wrap iframe{width:100%;height:100%;border:none;}
+
+/* ── ORDER CTA ── */
+#order{
+  background:linear-gradient(135deg,var(--dark-red),var(--red));
+  text-align:center;padding:80px 48px;position:relative;overflow:hidden;
+}
+#order::before{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.order-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(3rem,8vw,5.5rem);letter-spacing:4px;color:#fff;
+  text-shadow:0 4px 24px rgba(0,0,0,.3);margin-bottom:12px;position:relative;
+}
+.order-sub{color:rgba(255,255,255,.75);font-size:.95rem;margin-bottom:40px;position:relative;}
+.order-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative;}
+.fp-btn{
+  display:inline-flex;align-items:center;gap:12px;
+  background:#fff;color:var(--red);
+  padding:18px 48px;border-radius:60px;text-decoration:none;
+  font-weight:900;font-size:.9rem;letter-spacing:2px;text-transform:uppercase;
+  box-shadow:0 10px 40px rgba(0,0,0,.25);transition:all .3s;
+}
+.fp-btn:hover{transform:scale(1.06) translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.35);}
+.call-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.4);color:#fff;
+  padding:16px 36px;border-radius:60px;text-decoration:none;
+  font-weight:800;font-size:.88rem;letter-spacing:2px;text-transform:uppercase;transition:all .3s;
+}
+.call-btn:hover{background:rgba(255,255,255,.25);transform:translateY(-4px);}
+
+/* ── FOOTER ── */
+footer{background:#060606;padding:64px 48px 28px;border-top:1.5px solid rgba(232,21,27,.25);}
+.footer-inner{max-width:1200px;margin:0 auto;}
+.footer-top{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:60px;padding-bottom:50px;border-bottom:1px solid #111;margin-bottom:28px;}
+.footer-brand-name{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:3px;margin-bottom:12px;}
+.footer-brand-name span{color:var(--red);}
+.footer-desc{color:#555;font-size:.82rem;line-height:1.7;max-width:260px;margin-bottom:24px;}
+.socials{display:flex;gap:10px;}
+.soc{
+  width:38px;height:38px;background:rgba(255,255,255,.04);border:1px solid #1e1e1e;
+  border-radius:10px;display:flex;align-items:center;justify-content:center;
+  font-size:.95rem;text-decoration:none;transition:all .3s;
+}
+.soc:hover{background:var(--red);border-color:var(--red);transform:translateY(-3px);}
+.footer-col h5{font-size:.65rem;letter-spacing:2.5px;text-transform:uppercase;color:#555;margin-bottom:18px;}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:11px;}
+.footer-links a{color:#666;text-decoration:none;font-size:.84rem;transition:color .2s;}
+.footer-links a:hover{color:var(--red);}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;color:#333;font-size:.75rem;}
+
+/* ── FLOATING BTN ── */
+.float-cta{
+  position:fixed;bottom:28px;right:28px;z-index:999;
+  background:var(--red);color:#fff;
+  padding:13px 26px;border-radius:50px;text-decoration:none;
+  font-weight:900;font-size:.8rem;letter-spacing:1.5px;text-transform:uppercase;
+  display:flex;align-items:center;gap:8px;
+  box-shadow:0 6px 28px rgba(232,21,27,.55);
+  animation:floatBob 3s ease-in-out infinite;transition:background .2s;
+}
+.float-cta:hover{background:var(--dark-red);}
+@keyframes floatBob{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+
+/* ── REVEAL ── */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease;}
+.rv.show{opacity:1;transform:none;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav{padding:12px 20px;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  section{padding:70px 20px;}
+  .about-wrap,.loc-grid,.footer-top{grid-template-columns:1fr;gap:40px;}
+  .feat-grid,.stats-row{grid-template-columns:1fr 1fr;}
+  .reviews-grid,.menu-grid-3,.menu-grid-4{grid-template-columns:1fr 1fr;}
+  .chickenfry-grid{grid-template-columns:1fr;}
+  .map-wrap{height:300px;}
+  .footer-top{grid-template-columns:1fr 1fr;}
+  .footer-bottom{flex-direction:column;gap:8px;text-align:center;}
+}
+@media(max-width:540px){
+  .feat-grid,.reviews-grid,.menu-grid-2,.menu-grid-3,.menu-grid-4,.chickenfry-grid{grid-template-columns:1fr;}
+  .stats-row{grid-template-columns:1fr 1fr;}
+  .footer-top{grid-template-columns:1fr;}
+  .hero-title{font-size:4rem;}
+  .menu-tabs{gap:8px;}
+}
+</style>
+</head>
+<body>
+
+<!-- FLOATING -->
+<a href="https://www.foodpanda.com.bd" target="_blank" class="float-cta">🍔 Order Now</a>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-brand">
+    <img src="package_60.png" alt="Chillox" class="nav-logo" onerror="this.style.display='none'">
+    <span class="nav-name">Chill<span>ox</span></span>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#location">Find Us</a></li>
+    <li><a href="https://www.foodpanda.com.bd" target="_blank" class="nav-order">Order Now</a></li>
+  </ul>
+  <div class="hamburger" id="menuBtn" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-particles" id="heroParticles"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">🔥 Banani's Hottest Fast Food Spot</div>
+    <img src="package_60.png" alt="Chillox Logo" class="hero-logo-big" onerror="this.style.background='var(--red)';this.style.display='flex';">
+    <h1 class="hero-title">CHILL<span class="fire">OX</span></h1>
+    <p class="hero-tagline">Chill. Eat. <em>Repeat.</em></p>
+    <div class="hero-meta">
+      <span class="stars">★★★★★</span>
+      <span class="rating-val">4.4</span>
+      <span style="color:#555">/ 5,729+ Reviews</span>
+      <span class="sep">·</span>
+      <span style="color:#888;font-size:.85rem;">৳200–400</span>
+      <span class="sep">·</span>
+      <span style="color:#888;font-size:.85rem;">Open till 12 AM</span>
+    </div>
+    <div class="hero-btns">
+      <a href="https://www.foodpanda.com.bd" target="_blank" class="btn-fire">🛵 Order Online</a>
+      <a href="#menu" class="btn-ghost">Explore Menu</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-wrap">
+      <div class="rv">
+        <p class="sec-label">Our Story</p>
+        <h2 class="sec-title">WHERE FIRE MEETS FLAVOR</h2>
+        <p class="about-desc">Chillox Banani is Dhaka's go-to destination for bold, fire-grilled fast food. Nestled in the heart of Banani, we serve smashed burgers, crispy chicken, signature wings, and late-night cravings — all at prices that don't burn your pocket.</p>
+        <p class="about-desc" style="margin-top:10px;">Whether you're dining in, grabbing takeaway, or ordering delivery — Chillox hits different, every single time.</p>
+        <div class="stats-row" style="margin-top:32px;">
+          <div class="stat"><div class="stat-n">5.7K+</div><div class="stat-l">Reviews</div></div>
+          <div class="stat"><div class="stat-n">4.4★</div><div class="stat-l">Rating</div></div>
+          <div class="stat"><div class="stat-n">12AM</div><div class="stat-l">Close Time</div></div>
+          <div class="stat"><div class="stat-n">৳200</div><div class="stat-l">Starting From</div></div>
+        </div>
+      </div>
+      <div class="about-visual rv">
+        <div class="av-box av-span">
+          <img src="burges.jpg" alt="Chillox Burger">
+          <div class="av-label">Chillox Signature Burger</div>
+        </div>
+        <div class="av-box">
+          <img src="chiken.jpg" alt="Crispy Chicken">
+          <div class="av-label">Crispy Chicken</div>
+        </div>
+        <div class="av-box">
+          <img src="french.jpg" alt="French Fries">
+          <div class="av-label">French Fries</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+    <div style="text-align:center" class="rv">
+      <p class="sec-label">Why Chillox</p>
+      <h2 class="sec-title">THE CHILLOX DIFFERENCE</h2>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card rv"><div class="feat-ico">🔥</div><div class="feat-name">Fire-Grilled Freshness</div><div class="feat-text">Every item made fresh to order. No reheating, no shortcuts.</div></div>
+      <div class="feat-card rv"><div class="feat-ico">🚀</div><div class="feat-name">Fast Delivery</div><div class="feat-text">No-contact delivery via Foodpanda. Hot & fresh at your door.</div></div>
+      <div class="feat-card rv"><div class="feat-ico">🌙</div><div class="feat-name">Late Night Open</div><div class="feat-text">We're open till midnight — perfect for those late-night cravings.</div></div>
+      <div class="feat-card rv"><div class="feat-ico">😎</div><div class="feat-name">Chill Dine-In</div><div class="feat-text">A relaxed, vibrant space to hang with your squad in Banani.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="container">
+    <div style="text-align:center" class="rv">
+      <p class="sec-label">Our Menu</p>
+      <h2 class="sec-title">WHAT WE'RE SERVING</h2>
+      <p class="sec-sub" style="text-align:center;">All prices VAT & SD inclusive</p>
+    </div>
+
+    <div class="menu-tabs">
+      <button class="tab active" onclick="showTab('burgers',this)">🍔 Burgers</button>
+      <button class="tab" onclick="showTab('smashers',this)">💥 Smashers</button>
+      <button class="tab" onclick="showTab('chicken',this)">🍗 Chicken Fry</button>
+      <button class="tab" onclick="showTab('wings',this)">🏆 Pankha Wings</button>
+      <button class="tab" onclick="showTab('rice',this)">🍚 Rice Bowls</button>
+      <button class="tab" onclick="showTab('fish',this)">🐟 Fish</button>
+      <button class="tab" onclick="showTab('sides',this)">🍟 Sides</button>
+      <button class="tab" onclick="showTab('desserts',this)">🍰 Desserts</button>
+      <button class="tab" onclick="showTab('drinks',this)">🥤 Drinks</button>
+    </div>
+
+    <!-- BURGERS -->
+    <div id="tab-burgers" class="menu-panel active menu-grid-2">
+      <div class="menu-item rv"><div class="menu-item-left"><span class="menu-badge badge-best">Popular</span><div class="menu-item-name">Beef/Chicken Burger</div><div class="menu-item-desc">Special sauce, classic build</div></div><div class="menu-price">235<span class="tk">tk</span></div></div>
+      <div class="menu-item rv"><div class="menu-item-left"><span class="menu-badge badge-best">Cheesy</span><div class="menu-item-name">Beef/Chicken with Cheese</div><div class="menu-item-desc">Beef/chicken patty, cheese, special sauce</div></div><div class="menu-price">270<span class="tk">tk</span></div></div>
+      <div class="menu-item rv"><div class="menu-item-left"><div class="menu-item-name">Smoky BBQ Cheese</div><div class="menu-item-desc">BBQ sauce, cooked beef/chicken patty, cheese</div></div><div class="menu-price">295<span class="tk">tk</span></div></div>
+      <div class="menu-item rv"><div class="menu-item-left"><div class="menu-item-name">Beef/Chicken with Bacon</div><div class="menu-item-desc">Beef/chicken patty with crispy bacon</div></div><div class="menu-price">295<span class="tk">tk</span></div></div>
+      <div class="menu-item rv"><div class="menu-item-left"><div class="menu-item-name">Beef/Chicken with Sausage</div><div class="menu-item-desc">Beef/chicken patty, chicken sausage, cheese</div></div><div class="menu-price">320<span class="tk">tk</span></div></div>
+      <div class="menu-item rv"><div class="menu-item-left"><span class="menu-badge badge-hot">Double Stack</span><div class="menu-item-name">Double Decker Beef/Chicken</div><div class="menu-item-desc">Double patty, special sauce</div></div><div class="menu-price">395<span class="tk">tk</span></div></div>
+      <div class="menu-item rv"><div class="menu-item-left"><span class="menu-badge badge-hot">Blast!</span><div class="menu-item-name">Beef/Chicken Cheese Blast</div><div class="menu-item-desc">Extra cheese loaded burger</div></div><div class="menu-price">425<span class="tk">tk</span></div></div>
+      <div class="menu-item rv"><div class="menu-item-left"><div class="menu-item-name">Beef/Chicken Signature</div><div class="menu-item-desc">Chicken rashers, pickled onion, special sauce</div></div><div class="menu-price">495<span class="tk">tk</span></div></div>
+      <div class="menu-item rv" style="grid-column:span 2;"><div class="menu-item-left"><span class="menu-badge badge-best">Giant!</span><div class="menu-item-name">Giganto Beef/Chicken</div><div class="menu-item-desc">3x beef / 2x chicken premium, beef premium sauce, BBQ sauce</div></div><div class="menu-price">895<span class="tk">tk</span></div></div>
+    </div>
+
+    <!-- SMASHERS -->
+    <div id="tab-smashers" class="menu-panel menu-grid-3">
+      <div class="menu-item rv" style="flex-direction:column;gap:16px;">
+        <div style="width:100%"><span class="menu-badge badge-best">Signature</span><div class="menu-item-name" style="font-size:1.05rem;">Truffle Smasher</div><div class="menu-item-desc">125g Aged Beef Patty, Truffle Sauce, Pickles, Sautéed Onions, Cheese</div></div>
+        <div style="display:flex;gap:16px;width:100%"><div style="flex:1;text-align:center;"><div style="font-size:.65rem;color:#666;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Single</div><div class="menu-price" style="font-size:1.4rem;">395<span class="tk">tk</span></div></div><div style="flex:1;text-align:center;border-left:1px solid #222;"><div style="font-size:.65rem;color:#666;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Double</div><div class="menu-price" style="font-size:1.4rem;">590<span class="tk">tk</span></div></div></div>
+      </div>
+      <div class="menu-item rv" style="flex-direction:column;gap:16px;">
+        <div style="width:100%"><span class="menu-badge badge-hot">Umami</span><div class="menu-item-name" style="font-size:1.05rem;">Shiitake Mushroom Smasher</div><div class="menu-item-desc">125g Aged Beef Patty, Shiitake Mushrooms, Caramelised Onions, Special Sauce, Sautéed Onions, Cheese</div></div>
+        <div style="display:flex;gap:16px;width:100%"><div style="flex:1;text-align:center;"><div style="font-size:.65rem;color:#666;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Single</div><div class="menu-price" style="font-size:1.4rem;">495<span class="tk">tk</span></div></div><div style="flex:1;text-align:center;border-left:1px solid #222;"><div style="font-size:.65rem;color:#666;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Double</div><div class="menu-price" style="font-size:1.4rem;">690<span class="tk">tk</span></div></div></div>
+      </div>
+      <div class="menu-item rv" style="flex-direction:column;gap:16px;">
+        <div style="width:100%"><span class="menu-badge badge-new">Smoky</span><div class="menu-item-name" style="font-size:1.05rem;">Canadian Bacon Smasher</div><div class="menu-item-desc">125g Aged Beef Patty, Canadian Bacon, Special Sauce, Sautéed Onions, Cheese</div></div>
+        <div style="display:flex;gap:16px;width:100%"><div style="flex:1;text-align:center;"><div style="font-size:.65rem;color:#666;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Single</div><div class="menu-price" style="font-size:1.4rem;">500<span class="tk">tk</span></div></div><div style="flex:1;text-align:center;border-left:1px solid #222;"><div style="font-size:.65rem;color:#666;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Double</div><div class="menu-price" style="font-size:1.4rem;">695<span class="tk">tk</span></div></div></div>
+      </div>
+      <div class="menu-item rv" style="grid-column:span 3;background:rgba(232,21,27,.05);border-color:rgba(232,21,27,.2);">
+        <div class="menu-item-left"><div class="menu-item-name">Premium Smash Patties</div><div class="menu-item-desc">Blend of Beef Steak Cuts, Aged 21 Days, Freshly Ground to Order, Grilled in Butter</div></div>
+        <div style="color:#666;font-size:.78rem;text-align:right;">Ask for customization 🔥</div>
+      </div>
+    </div>
+
+    <!-- CHICKEN FRY -->
+    <div id="tab-chicken" class="menu-panel chickenfry-grid">
+      <div class="cf-card rv">
+        <div class="cf-title">🍗 Chicken Fry</div>
+        <div class="cf-sub">Served with special Jalapeño Sauce</div>
+        <div class="cf-row"><span class="cf-pcs">1 Pc (Any)</span><span class="cf-price">135 tk</span></div>
+        <div class="cf-row"><span class="cf-pcs">2 Pcs (1 Drumstick + 1 Breast/Rib/Thigh)</span><span class="cf-price">280 tk</span></div>
+        <div class="cf-row"><span class="cf-pcs">4 Pcs (2 Drumstick + 2 Thigh + 1 Breast/Rib)</span><span class="cf-price">515 tk</span></div>
+        <div class="cf-row"><span class="cf-pcs">6 Pcs (2 Drumstick + 2 Thigh + 2 Breast/Rib)</span><span class="cf-price">780 tk</span></div>
+        <div class="cf-row"><span class="cf-pcs">9 Pcs (3 Drumstick + 3 Thigh + 3 Breast/Rib)</span><span class="cf-price">1150 tk</span></div>
+        <div class="cf-row"><span class="cf-pcs">12 Pcs (4 Drumstick + 3 Thigh + 5 Breast/Rib)</span><span class="cf-price">1535 tk</span></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:18px;" class="rv">
+        <div class="menu-item" style="flex-direction:column;align-items:flex-start;gap:10px;">
+          <div><span class="menu-badge badge-best">Crispy</span><div class="menu-item-name">Crispy Chicken Burger</div><div class="menu-item-desc">Juicy & crispy boneless patty with lettuce, pickles & house sauce</div></div>
+          <div class="menu-price">295<span class="tk">tk</span></div>
+        </div>
+        <div class="menu-item" style="flex-direction:column;align-items:flex-start;gap:10px;">
+          <div><span class="menu-badge badge-hot">Cheesy</span><div class="menu-item-name">Crispy Chicken Cheese Burger</div><div class="menu-item-desc">Crispy boneless patty, cheese, lettuce, pickles & house sauce</div></div>
+          <div class="menu-price">325<span class="tk">tk</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WINGS -->
+    <div id="tab-wings" class="menu-panel" style="display:none;">
+      <div class="menu-item rv" style="flex-direction:column;gap:20px;max-width:560px;margin:0 auto;">
+        <div style="text-align:center;width:100%">
+          <div style="font-size:2.5rem;margin-bottom:10px;">🏆</div>
+          <div class="menu-item-name" style="font-size:1.3rem;">Pankha Wings — 6 Pcs</div>
+          <div class="menu-item-desc" style="margin-top:6px;">Choose your flavor (any 3)</div>
+          <div class="menu-price" style="font-size:2.2rem;margin-top:12px;">270<span class="tk">tk</span></div>
+        </div>
+        <div style="width:100%">
+          <div style="font-size:.65rem;color:#666;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;text-align:center;">Choose Your Flavors</div>
+          <div class="flavor-pills" style="justify-content:center;">
+            <span class="pill">🔥 BBQ</span>
+            <span class="pill">🍬 Sweet N' Naga</span>
+            <span class="pill">🍯 Honey</span>
+            <span class="pill">🌶️ Achari</span>
+            <span class="pill">Original</span>
+            <span class="pill">🌶 Sriracha</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RICE BOWLS -->
+    <div id="tab-rice" class="menu-panel menu-grid-3">
+      <div class="menu-item rv" style="flex-direction:column;gap:10px;align-items:flex-start;">
+        <div><span class="menu-badge badge-best">Best Seller</span><div class="menu-item-name">Crispy Chicken Rice</div><div class="menu-item-desc">Special rice, 1 pc fried chicken, 2 pcs original wings</div></div>
+        <div class="menu-price">325<span class="tk">tk</span></div>
+      </div>
+      <div class="menu-item rv" style="flex-direction:column;gap:10px;align-items:flex-start;">
+        <div><div class="menu-item-name">Pan Asian Mashup</div><div class="menu-item-desc">Tom yum rice, kung pao chicken, egg</div></div>
+        <div class="menu-price">325<span class="tk">tk</span></div>
+      </div>
+      <div class="menu-item rv" style="flex-direction:column;gap:10px;align-items:flex-start;">
+        <div><div class="menu-item-name">Continental Fusion</div><div class="menu-item-desc">Special rice, cream chicken, egg</div></div>
+        <div class="menu-price">325<span class="tk">tk</span></div>
+      </div>
+    </div>
+
+    <!-- FISH -->
+    <div id="tab-fish" class="menu-panel menu-grid-2">
+      <div class="menu-item rv" style="flex-direction:column;gap:10px;align-items:flex-start;">
+        <div><div class="menu-item-name">Fish Tots (6 pcs)</div><div class="menu-item-desc">Crispy fish bites</div></div>
+        <div class="menu-price">235<span class="tk">tk</span></div>
+      </div>
+      <div class="menu-item rv" style="flex-direction:column;gap:10px;align-items:flex-start;">
+        <div><span class="menu-badge badge-new">Try This</span><div class="menu-item-name">Fish Burger</div><div class="menu-item-desc">Dory fish patty, tartar sauce</div></div>
+        <div class="menu-price">360<span class="tk">tk</span></div>
+      </div>
+      <div class="menu-item rv" style="flex-direction:column;gap:10px;align-items:flex-start;grid-column:span 2;max-width:400px;">
+        <div><span class="menu-badge badge-hot">🌶️ Very Spicy!</span><div class="menu-item-name">Naga Drums — 1pc / 2pcs</div><div class="menu-item-desc">Spice level is extremely high, may cause complications</div></div>
+        <div class="menu-price">130<span class="tk">tk</span> &nbsp;<span style="color:#555;font-family:'Nunito';font-size:.85rem;font-weight:700;">/ 255tk</span></div>
+      </div>
+    </div>
+
+    <!-- SIDES -->
+    <div id="tab-sides" class="menu-panel menu-grid-3">
+      <div class="menu-item rv" style="flex-direction:column;gap:10px;align-items:flex-start;">
+        <div><div class="menu-item-name">Potato Wedges</div></div>
+        <div class="menu-price">175<span class="tk">tk</span></div>
+      </div>
+      <div class="menu-item rv" style="flex-direction:column;gap:10px;align-items:flex-start;">
+        <div><div class="menu-item-name">French Fries</div><div class="menu-item-desc">Small / Regular / Large</div></div>
+        <div class="menu-price" style="font-size:1.2rem;">80 / 125 / 185<span class="tk">tk</span></div>
+      </div>
+      <div class="menu-item rv" style="flex-direction:column;gap:10px;align-items:flex-start;">
+        <div><div class="menu-item-name">Chicken Fingers</div><div class="menu-item-desc">5 pcs / 10 pcs</div></div>
+        <div class="menu-price" style="font-size:1.2rem;">195 / 380<span class="tk">tk</span></div>
+      </div>
+    </div>
+
+    <!-- DESSERTS -->
+    <div id="tab-desserts" class="menu-panel menu-grid-3">
+      <div class="menu-item rv" style="flex-direction:column;gap:10px;align-items:flex-start;">
+        <div><span class="menu-badge badge-best">Love In A Cup</span><div class="menu-item-name">Tira-Miss-U</div><div class="menu-item-desc">Tiramisu dessert cookies, cheese & fluffy coffee cream</div></div>
+        <div class="menu-price">220<span class="tk">tk</span></div>
+      </div>
+      <div class="menu-item rv" style="flex-direction:column;gap:10px;align-items:flex-start;">
+        <div><div class="menu-item-name">Oreo & Cheese</div><div class="menu-item-desc">Crushed Oreo, smooth & creamy cheese filling</div></div>
+        <div class="menu-price">220<span class="tk">tk</span></div>
+      </div>
+      <div class="menu-item rv" style="flex-direction:column;gap:10px;align-items:flex-start;">
+        <div><div class="menu-item-name">Blueberry Cheese Dip</div><div class="menu-item-desc">Cream cheese combined with the touch of blueberry</div></div>
+        <div class="menu-price">210<span class="tk">tk</span></div>
+      </div>
+      <div class="menu-item rv" style="flex-direction:column;gap:10px;align-items:flex-start;">
+        <div><div class="menu-item-name">Red Velvet</div><div class="menu-item-desc">Crumb cookie with smooth red velvet cream cheese</div></div>
+        <div class="menu-price">230<span class="tk">tk</span></div>
+      </div>
+      <div class="menu-item rv" style="flex-direction:column;gap:10px;align-items:flex-start;">
+        <div><div class="menu-item-name">Choco Fudge</div><div class="menu-item-desc">Crumb cookie, dark chocolate fudge, smooth choco cream</div></div>
+        <div class="menu-price">230<span class="tk">tk</span></div>
+      </div>
+    </div>
+
+    <!-- DRINKS -->
+    <div id="tab-drinks" class="menu-panel menu-grid-4">
+      <!-- Shakes -->
+      <div style="grid-column:span 4;" class="rv">
+        <p style="font-family:'Bebas Neue';font-size:1.5rem;letter-spacing:2px;color:var(--red);margin-bottom:16px;">🥤 Shakes</p>
+      </div>
+      <div class="menu-item rv" style="flex-direction:column;gap:8px;align-items:flex-start;"><div class="menu-item-name">Cold Coffee</div><div class="menu-price">185<span class="tk">tk</span></div></div>
+      <div class="menu-item rv" style="flex-direction:column;gap:8px;align-items:flex-start;"><div class="menu-item-name">Munch</div><div class="menu-price">190<span class="tk">tk</span></div></div>
+      <div class="menu-item rv" style="flex-direction:column;gap:8px;align-items:flex-start;"><div class="menu-item-name">Oreo Shake</div><div class="menu-price">200<span class="tk">tk</span></div></div>
+      <div class="menu-item rv" style="flex-direction:column;gap:8px;align-items:flex-start;"><div class="menu-item-name">Nutella</div><div class="menu-price">230<span class="tk">tk</span></div></div>
+      <div class="menu-item rv" style="flex-direction:column;gap:8px;align-items:flex-start;"><div class="menu-item-name">Ferrero Rocher</div><div class="menu-price">240<span class="tk">tk</span></div></div>
+      <div class="menu-item rv" style="flex-direction:column;gap:8px;align-items:flex-start;"><span class="menu-badge badge-new">New</span><div class="menu-item-name">Brownie Shake</div><div class="menu-price">240<span class="tk">tk</span></div></div>
+      <!-- Chillers -->
+      <div style="grid-column:span 4;margin-top:24px;" class="rv">
+        <p style="font-family:'Bebas Neue';font-size:1.5rem;letter-spacing:2px;color:var(--red);margin-bottom:16px;">🧊 Chillers</p>
+      </div>
+      <div class="menu-item rv" style="flex-direction:column;gap:8px;align-items:flex-start;"><div class="menu-item-name">Mint Mojito</div><div class="menu-price">99<span class="tk">tk</span></div></div>
+      <div class="menu-item rv" style="flex-direction:column;gap:8px;align-items:flex-start;"><div class="menu-item-name">Iced Lemon Tea</div><div class="menu-price">99<span class="tk">tk</span></div></div>
+      <!-- Soft Drinks -->
+      <div style="grid-column:span 4;margin-top:24px;" class="rv">
+        <p style="font-family:'Bebas Neue';font-size:1.5rem;letter-spacing:2px;color:var(--red);margin-bottom:16px;">🥃 Soft Drinks</p>
+      </div>
+      <div class="menu-item rv" style="flex-direction:column;gap:8px;align-items:flex-start;"><div class="menu-item-name">Regular (Fountain)</div><div class="menu-price">60<span class="tk">tk</span></div></div>
+      <div class="menu-item rv" style="flex-direction:column;gap:8px;align-items:flex-start;"><div class="menu-item-name">Large (Fountain)</div><div class="menu-price">75<span class="tk">tk</span></div></div>
+      <div class="menu-item rv" style="flex-direction:column;gap:8px;align-items:flex-start;"><div class="menu-item-name">Mineral Water</div><div class="menu-price" style="font-size:1rem;padding-top:6px;">MRP</div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="container">
+    <div style="text-align:center;" class="rv">
+      <p class="sec-label">Reviews</p>
+      <h2 class="sec-title">WHAT DHAKA SAYS</h2>
+      <p class="sec-sub" style="text-align:center;">4.4 stars · 5,729+ Google Reviews</p>
+    </div>
+    <div class="reviews-grid">
+      <div class="rev-card rv">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-text">The Smash Burger is absolutely fire! Crispy edges, juicy patty, that special sauce hits different every time. Best fast food in Banani — I've been coming every week since I found this place.</p>
+        <div class="reviewer"><div class="rev-av">R</div><div><div class="rev-name">Rakib Hasan</div><div class="rev-date">2 weeks ago</div></div></div>
+      </div>
+      <div class="rev-card rv">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-text">চিলক্সের Pankha Wings এ Honey আর BBQ একসাথে দিলে মাথা নষ্ট হয়ে যায়! দাম একদম রিজনেবল, পরিবেশটাও খুব সুন্দর। বন্ধুদের নিয়ে আসার জন্য পারফেক্ট জায়গা।</p>
+        <div class="reviewer"><div class="rev-av">T</div><div><div class="rev-name">Tamanna Ahmed</div><div class="rev-date">1 month ago</div></div></div>
+      </div>
+      <div class="rev-card rv">
+        <div class="rev-stars">★★★★☆</div>
+        <p class="rev-text">Tried the Truffle Smasher and it was genuinely one of the best burgers I've had in Dhaka. Aged beef, cooked perfectly. The Blueberry Cheese Dip dessert was also a great surprise. Highly recommend!</p>
+        <div class="reviewer"><div class="rev-av">S</div><div><div class="rev-name">Saif Uddin</div><div class="rev-date">3 weeks ago</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section id="location">
+  <div class="container">
+    <div class="rv">
+      <p class="sec-label">Find Us</p>
+      <h2 class="sec-title">VISIT CHILLOX BANANI</h2>
+    </div>
+    <div class="loc-grid">
+      <div class="loc-info rv">
+        <div class="loc-block">
+          <div class="loc-icon">📍</div>
+          <div><div class="loc-label">Address</div><div class="loc-val">1st Floor, House 25<br>Intersection of Road 11 & 12<br>Genetic Road No. 11, Banani<br>Dhaka — 1213</div></div>
+        </div>
+        <div class="loc-block">
+          <div class="loc-icon">📞</div>
+          <div><div class="loc-label">Phone</div><div class="loc-val" style="color:var(--red);font-size:1.1rem;font-weight:900;">09678-361361</div></div>
+        </div>
+        <div class="loc-block">
+          <div class="loc-icon">🕐</div>
+          <div style="width:100%"><div class="loc-label">Opening Hours</div>
+            <table class="hours-tbl">
+              <tr><td class="d">Sat – Thu</td><td class="t">11:00 AM – 12:00 AM</td></tr>
+              <tr><td class="d">Friday</td><td class="t">12:00 PM – 12:00 AM</td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="loc-block">
+          <div class="loc-icon">🛵</div>
+          <div><div class="loc-label">Services</div>
+            <div class="services-row">
+              <span class="srv">✅ Dine-in</span>
+              <span class="srv">✅ Takeaway</span>
+              <span class="srv">✅ Delivery</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="map-wrap rv">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.5982!2d90.3982!3d23.7942!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c7715a40a74b%3A0x5174c58e5ca65ef!2sChillox%20Banani!5e0!3m2!1sen!2sbd!4v1690000000000" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER CTA -->
+<section id="order">
+  <h2 class="order-title">HUNGRY RIGHT NOW?</h2>
+  <p class="order-sub">Order online & get hot food delivered straight to your door 🛵</p>
+  <div class="order-btns">
+    <a href="https://www.foodpanda.com.bd" target="_blank" class="fp-btn">🐼 Order on Foodpanda</a>
+    <a href="tel:09678361361" class="call-btn">📞 Call to Order</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">CHILL<span>OX</span> BANANI</div>
+        <p class="footer-desc">Dhaka's hottest fast food. Bold flavors, chill vibes, and food that hits different — every single time since we fired up the grill.</p>
+        <div class="socials">
+          <a href="https://facebook.com" target="_blank" class="soc" title="Facebook">📘</a>
+          <a href="#" class="soc" title="Instagram">📸</a>
+          <a href="https://chillox.engaze.ai" target="_blank" class="soc" title="Website">🌐</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <ul class="footer-links">
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#menu">Our Menu</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#location">Location</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Order</h5>
+        <ul class="footer-links">
+          <li><a href="https://www.foodpanda.com.bd" target="_blank">🐼 Foodpanda</a></li>
+          <li><a href="tel:09678361361">📞 09678-361361</a></li>
+          <li><a href="https://chillox.engaze.ai" target="_blank">🌐 chillox.engaze.ai</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Hours</h5>
+        <ul class="footer-links">
+          <li><a href="#">Sat–Thu: 11AM–12AM</a></li>
+          <li><a href="#">Friday: 12PM–12AM</a></li>
+          <li><a href="#location">House 25, Road 11, Banani</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Chillox Banani. All rights reserved.</span>
+      <span>All prices VAT & SD inclusive 🔥</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Fire particles
+const pc = document.getElementById('heroParticles');
+for(let i=0;i<30;i++){
+  const el=document.createElement('div');
+  el.className='spark';
+  el.style.setProperty('--d',(3+Math.random()*5)+'s');
+  el.style.setProperty('--dl',(Math.random()*7)+'s');
+  el.style.setProperty('--l',(Math.random()*100)+'%');
+  const s=(4+Math.random()*9)+'px';
+  el.style.setProperty('--s',s);
+  pc.appendChild(el);
+}
+
+// Tabs
+function showTab(id,btn){
+  document.querySelectorAll('.menu-panel').forEach(p=>{p.style.display='none';p.classList.remove('active');});
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  const panel=document.getElementById('tab-'+id);
+  panel.style.display='';
+  // restore correct display
+  if(['wings'].includes(id)) panel.style.display='flex';
+  else if(id==='chicken') panel.style.display='grid';
+  else panel.style.display='grid';
+  panel.classList.add('active');
+  btn.classList.add('active');
+  // re-trigger reveals
+  panel.querySelectorAll('.rv').forEach(el=>el.classList.add('show'));
+}
+// init wings display
+document.getElementById('tab-wings').style.display='none';
+
+// Scroll reveal
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show');});
+},{threshold:0.08});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+// Navbar shrink
+window.addEventListener('scroll',()=>{
+  const nav=document.getElementById('navbar');
+  nav.style.padding=window.scrollY>60?'8px 48px':'12px 48px';
+});
+
+// Mobile nav toggle
+function toggleNav(){
+  const links=document.getElementById('navLinks');
+  if(links.style.display==='flex'){
+    links.style.display='none';
+  } else {
+    links.style.cssText='display:flex;flex-direction:column;position:absolute;top:70px;left:0;right:0;background:#0a0a0a;padding:20px 24px;gap:16px;border-bottom:1px solid #1a1a1a;';
+  }
+}
+</script>
+</body>
+</html>
